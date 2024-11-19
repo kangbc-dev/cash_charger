@@ -22,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
 
     }
   }
+  input[type=text] {
+    border: none;
+    border-bottom: 1px solid #2b2b2b;
+  }
 
 `;
 

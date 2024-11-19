@@ -2,6 +2,8 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { dayInfoAtom } from "../../recoil/dayInfo";
+import { cashInfoAtom } from "../../recoil/cashInfo";
+import CalendarList from "./List";
 //!!!!!!!!!!!!!!!!!!!!!!!!!! 후에 calendar 좌우로 1개씩 복제, 스와이프 기능 구현 예정
 
 const S = {
@@ -25,6 +27,21 @@ const S = {
 		tbody {
 			text-align: center; //요일 구분 중앙정렬
 			width: 100%; // 추가
+			& td {
+				position: relative;
+				overflow: hidden;
+				& .incomeExpenditure {
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					& > .income {
+						color: blue;
+					}
+					& > .expenditure {
+						color: red;
+					}
+				}
+			}
 		}
 		thead {
 			font-size: 0.7rem;
@@ -42,6 +59,7 @@ const S = {
 
 function Calendar() {
 	const [dayInfo, setDayInfo] = useRecoilState(dayInfoAtom);
+	const [cashInfo, setCashInfo] = useRecoilState(cashInfoAtom);
 
 	//재사용 함수 선언
 	/** 캘린더 생성 함수 */
@@ -89,6 +107,39 @@ function Calendar() {
 										}}
 									>
 										{day.format("DD일")}
+										<div className="incomeExpenditure">
+											<div className="income">
+												<span>
+													{cashInfo
+														.filter((item) => {
+															return item.createdAt ===
+																day.clone().format("YYYY_MM_DD") &&
+																item.incomeExpenditure === "income"
+																? true
+																: false;
+														})
+														.reduce((acc, cur) => {
+															return +acc?.value || acc + +cur.value;
+														}, 0) || ""}
+												</span>
+											</div>
+											<div className="expenditure">
+												<span>
+													{cashInfo
+														.filter((item) => {
+															return item.createdAt ===
+																day.clone().format("YYYY_MM_DD") &&
+																item.incomeExpenditure === "expenditure"
+																? true
+																: false;
+														})
+														.reduce(
+															(acc, cur) => +acc?.value || acc + +cur.value,
+															0
+														) || ""}
+												</span>
+											</div>
+										</div>
 									</td> //각 요일들
 								);
 							})}
@@ -99,11 +150,14 @@ function Calendar() {
 		return calendarJsx;
 	};
 	return (
-		<S.CalenderWrapper>
-			{calendarMakingFunction(
-				dayInfo.currentCheckpoint.clone().startOf("month").add(0, "month")
-			)}
-		</S.CalenderWrapper>
+		<>
+			<S.CalenderWrapper>
+				{calendarMakingFunction(
+					dayInfo.currentCheckpoint.clone().startOf("month").add(0, "month")
+				)}
+			</S.CalenderWrapper>
+			<CalendarList />
+		</>
 	);
 }
 

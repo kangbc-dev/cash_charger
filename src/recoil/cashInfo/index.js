@@ -6,10 +6,8 @@ const { persistAtom } = recoilPersist({
 	storage: localStorage, // 사용할 저장소, 여기서는 localStorage를 사용
 });
 
-const cashInfoAtom = atom({
+export const cashInfoAtom = atom({
 	key: "cashInfoAtom",
-	default: {
-		log: {},
-	},
+	default: [],
 	effects_UNSTABLE: [persistAtom], // atom에 persistAtom 효과를 추가하여 지속성을 부여
 });

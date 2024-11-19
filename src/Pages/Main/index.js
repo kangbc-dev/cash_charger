@@ -9,7 +9,6 @@ const MainBox = styled.div`
 function Main() {
 	return (
 		<MainBox>
-			<h1>hello</h1>
 			<Calendar />
 		</MainBox>
 	);

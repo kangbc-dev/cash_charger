@@ -99,10 +99,26 @@ function Calendar() {
 								const today = dayInfo.today.clone();
 								return (
 									<td
+										onClick={() => {
+											setDayInfo((current) => {
+												return {
+													...current,
+													currentCheckpoint: day.clone(),
+												};
+											});
+										}}
 										style={{
 											color:
-												day.format("MM월 DD일") === today.format("MM월 DD일")
+												day.clone().format("MM월 DD일") ===
+												today.clone().format("MM월 DD일")
 													? "red"
+													: "inherit",
+											backgroundColor:
+												day.clone().format("YYYY년 MM월 DD일") ===
+												dayInfo.currentCheckpoint
+													.clone()
+													.format("YYYY년 MM월 DD일")
+													? "rgb(0,0,0,0.2)"
 													: "inherit",
 										}}
 									>

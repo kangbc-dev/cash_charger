@@ -10,15 +10,14 @@ const S = {
 		flex-direction: column;
 		width: 100%;
 		padding: 0 10px;
+	`,
+	items: styled.div`
+		display: flex;
+		justify-content: space-between;
 
-		& .items {
-			display: flex;
-			justify-content: space-between;
-
-			width: 100%;
-			& > span:nth-child(2) {
-				color: red;
-			}
+		width: 100%;
+		& > span:nth-child(2) {
+			color: ${(props) => (props.isincome ? "blue" : "red")};
 		}
 	`,
 };
@@ -37,10 +36,13 @@ function CalendarList() {
 					);
 				})
 				.map((item, index) => (
-					<div className="items" key={index}>
+					<S.items
+						key={index}
+						isincome={item.incomeExpenditure === "income" ? true : false}
+					>
 						<span>{item.category}</span>
 						<span>{item.value}</span>
-					</div>
+					</S.items>
 				))}
 		</S.wrapper>
 	);

@@ -90,7 +90,7 @@ function Calendar() {
 						{Array(7)
 							.fill(0)
 							.map((item, index) => {
-								const day = dayInfo.currentCheckpoint
+								const day = dayInfo.currentCheckpointMonth
 									.clone()
 									.startOf("year")
 									.week(week)
@@ -103,7 +103,7 @@ function Calendar() {
 											setDayInfo((current) => {
 												return {
 													...current,
-													currentCheckpoint: day.clone(),
+													currentCheckpointDay: day.clone(),
 												};
 											});
 										}}
@@ -115,7 +115,7 @@ function Calendar() {
 													: "inherit",
 											backgroundColor:
 												day.clone().format("YYYY년 MM월 DD일") ===
-												dayInfo.currentCheckpoint
+												dayInfo.currentCheckpointDay
 													.clone()
 													.format("YYYY년 MM월 DD일")
 													? "rgb(0,0,0,0.2)"
@@ -169,7 +169,10 @@ function Calendar() {
 		<>
 			<S.CalenderWrapper>
 				{calendarMakingFunction(
-					dayInfo.currentCheckpoint.clone().startOf("month").add(0, "month")
+					dayInfo.currentCheckpointMonth
+						.clone()
+						.startOf("month")
+						.add(0, "month")
 				)}
 			</S.CalenderWrapper>
 			<CalendarList />

@@ -32,7 +32,7 @@ function CalendarList() {
 				.filter((item) => {
 					return (
 						item.createdAt ===
-						dayInfo.currentCheckpoint.clone().format("YYYY_MM_DD")
+						dayInfo.currentCheckpointDay.clone().format("YYYY_MM_DD")
 					);
 				})
 				.map((item, index) => (

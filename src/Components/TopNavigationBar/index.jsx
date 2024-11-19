@@ -54,7 +54,7 @@ function TopNavigationBar() {
 						setDayInfo((current) => {
 							return {
 								...current,
-								currentCheckpoint: current.today.clone(),
+								currentCheckpointMonth: current.today.clone(),
 							};
 						});
 					}}
@@ -67,7 +67,7 @@ function TopNavigationBar() {
 						setDayInfo((current) => {
 							return {
 								...current,
-								currentCheckpoint: current.currentCheckpoint
+								currentCheckpointMonth: current.currentCheckpointMonth
 									.clone()
 									.add(-1, "month"),
 							};
@@ -76,14 +76,14 @@ function TopNavigationBar() {
 				>
 					<FaAngleLeft />
 				</div>
-				<span>{dayInfo.currentCheckpoint.format("MM")}</span>
+				<span>{dayInfo.currentCheckpointMonth.format("MM")}</span>
 				<div
 					className="canlendarRightAngle"
 					onClick={() => {
 						setDayInfo((current) => {
 							return {
 								...current,
-								currentCheckpoint: current.currentCheckpoint
+								currentCheckpointMonth: current.currentCheckpointMonth
 									.clone()
 									.add(+1, "month"),
 							};

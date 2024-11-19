@@ -8,6 +8,7 @@ export const dayInfoAtom = atom({
 	key: "dayInfoAtom",
 	default: {
 		today: today.clone(),
-		currentCheckpoint: today.clone(),
+		currentCheckpointMonth: today.clone(),
+		currentCheckpointDay: today.clone(),
 	},
 });
